@@ -1,7 +1,7 @@
 
 install:
 	@pip install -e .
-
+	pip install --upgrade pip
 #clean:
  #   @rm -f */version.txt
   #  @rm -f .coverage

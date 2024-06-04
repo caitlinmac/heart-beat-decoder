@@ -6,3 +6,5 @@ tensorflow
 seaborn
 jupyter
 setuptools
+ipython
+ipykernel
