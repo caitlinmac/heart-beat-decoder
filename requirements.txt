@@ -1,7 +1,7 @@
 numpy
 pandas
 matplotlib
-sklearn
+scikit-learn
 tensorflow
 seaborn
 jupyter
@@ -9,3 +9,4 @@ setuptools
 ipython
 ipykernel
 hbd
+imblearn
