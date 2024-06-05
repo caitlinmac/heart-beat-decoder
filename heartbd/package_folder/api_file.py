@@ -1,6 +1,3 @@
-
-### THIS IS JUST THE TEMPLATE FOR WHEN WE HAVE OUR MODEL
-
 from fastapi import FastAPI
 import pickle
 
@@ -10,9 +7,10 @@ app = FastAPI()
 # define the root directory
 @app.get('/')
 def root():
-	return {'greeting': 'hello'}
+	return {'greeting': 'ground control to major tom...'}
 
 # define our prediction
+# the 'main_output' variable is just a stand-in for the time being
 @app.get('/predict')
 def predict(main_output):
 	with open('heartbd/models/main_test.pkl','rb') as file:
