@@ -1,4 +1,5 @@
 
+#Pip commands
 
 install_requirements:
 	@pip install -r requirements.txt
@@ -7,6 +8,13 @@ install_requirements:
 install:
 	@pip install -e .
 	pip install --upgrade pip
+
+# Tests commands
+
+main_file_test:
+	@python heartbd/interface/main.py
+
+
 #clean:
  #   @rm -f */version.txt
   #  @rm -f .coverage

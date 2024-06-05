@@ -1,4 +1,6 @@
 
+
+import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -8,8 +10,6 @@ from imblearn.over_sampling import SMOTE
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 
-def test():
-    return 21 == 21
 
 def load_data(folder_path, folder_name):
     """
@@ -30,7 +30,8 @@ def clean():
     """
     Put descriptions please of what this function is doing
     """
-    data = load_data('raw_data/data_set2/', 'INCART 2-lead Arrhythmia Database.csv')
+
+    data = load_data(os.environ.get('FOLDER_PATH'), os.environ.get('DATASET_FILE'))
 
     type_names = {
         'N': 'Normal',
@@ -97,4 +98,10 @@ def main_stream():
 
 def predict():
     return main_stream()
-print(predict())
+
+
+def test():
+    print(predict())
+
+if __name__ == "__main__":
+    test()

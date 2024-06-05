@@ -10,3 +10,4 @@ ipython
 ipykernel
 heartbd
 imblearn
+python-dotenv
