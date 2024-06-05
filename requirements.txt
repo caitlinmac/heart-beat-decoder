@@ -16,6 +16,10 @@ imblearn
 setuptools
 heartbd
 
-# API
+# API and FRONT END
 uvicorn
 fastapi
+streamlit
+
+# .env
+python-dotenv

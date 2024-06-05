@@ -101,10 +101,11 @@ def main_stream():
 
 def predict():
     return main_stream()
-# print(predict())
 
+main_output = predict()
+main_output # essentially returns y_pred in a really convoluted way
 
-### EXPORT FILE ###
+################################ EXPORT FILE ###################################
 
 # refer to file in an error-safe way
 try:
