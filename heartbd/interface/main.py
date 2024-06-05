@@ -97,3 +97,4 @@ def main_stream():
 
 def predict():
     return main_stream()
+print(predict())

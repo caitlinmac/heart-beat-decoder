@@ -8,5 +8,5 @@ jupyter
 setuptools
 ipython
 ipykernel
-hbd
+heartbd
 imblearn
