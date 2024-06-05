@@ -1,0 +1,12 @@
+numpy
+pandas
+matplotlib
+scikit-learn
+tensorflow
+seaborn
+jupyter
+setuptools
+ipython
+ipykernel
+heartbd
+imblearn
