@@ -1,2 +1,2 @@
-from hbd.interface import main
+from heartbd.interface import main
 print(main.test())
