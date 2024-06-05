@@ -1,0 +1,22 @@
+
+#PYTHON
+numpy
+pandas
+matplotlib
+seaborn
+jupyter
+ipython
+ipykernel
+
+#MACHINE LEARNING
+scikit-learn
+tensorflow
+imblearn
+
+#SYSTEM
+setuptools
+heartbd
+
+# API
+uvicorn
+fastapi
