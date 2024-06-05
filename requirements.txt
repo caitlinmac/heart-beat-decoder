@@ -1,5 +1,4 @@
-
-#PYTHON
+# PYTHON
 numpy
 pandas
 matplotlib
@@ -8,12 +7,12 @@ jupyter
 ipython
 ipykernel
 
-#MACHINE LEARNING
+# MACHINE LEARNING
 scikit-learn
 tensorflow
 imblearn
 
-#SYSTEM
+# SYSTEM
 setuptools
 heartbd
 

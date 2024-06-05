@@ -1,5 +1,5 @@
+
 ### THIS IS JUST THE TEMPLATE FOR WHEN WE HAVE OUR MODEL
-# dcg
 
 from fastapi import FastAPI
 import pickle

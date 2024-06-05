@@ -2,11 +2,15 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
+import pickle
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from imblearn.over_sampling import SMOTE
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+
+#######################################################################################
 
 def test():
     return 21 == 21
@@ -30,7 +34,7 @@ def clean():
     """
     Put descriptions please of what this function is doing
     """
-    data = load_data('raw_data/data_set2/', 'INCART 2-lead Arrhythmia Database.csv')
+    data = load_data('raw_data/','INCART 2-lead Arrhythmia Database.csv')
 
     type_names = {
         'N': 'Normal',
@@ -97,4 +101,22 @@ def main_stream():
 
 def predict():
     return main_stream()
-print(predict())
+# print(predict())
+
+
+### EXPORT FILE ###
+
+# refer to file in an error-safe way
+try:
+    file_path = __file__
+except NameError:
+    file_path = 'main.py'
+
+# get file name without extension and store as 'filename'
+filepath = os.path.basename(__file__) # with extension
+filename, _ = os.path.splitext(filepath)
+
+# export file to a pickle file as 'filename_test.pkl' and
+with open(f'heartbd/models/{filename}_test.pkl','wb') as file:
+    pickle.dump(predict(), file)
+    print(f'Model is successfully saved as "{filename}_test.pkl"! Consider it pickled.')
