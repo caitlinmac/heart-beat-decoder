@@ -10,7 +10,7 @@ from imblearn.over_sampling import SMOTE
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 
-#######################################################################################
+################################################################################
 
 def test():
     return 21 == 21
@@ -113,11 +113,11 @@ try:
 except NameError:
     file_path = 'main.py'
 
-# get file name without extension and store as 'filename'
-filepath = os.path.basename(__file__) # with extension
+# parse file name and extension and store file name as 'filename' variable
+filepath = os.path.basename(__file__)
 filename, _ = os.path.splitext(filepath)
 
-# export file to a pickle file as 'filename_test.pkl' and
-with open(f'heartbd/models/{filename}_test.pkl','wb') as file:
-    pickle.dump(predict(), file)
-    print(f'Model is successfully saved as "{filename}_test.pkl"! Consider it pickled.')
+# export file to a pickle file as 'filename_pickled.pkl' and
+with open(f'heartbd/models/{filename}_pickled.pkl','wb') as file:
+    pickle.dump(main_output, file)
+    print(f'The model is successfully saved as "{filename}_pickled.pkl"! Consider <{filename}{ _}> pickled.')
