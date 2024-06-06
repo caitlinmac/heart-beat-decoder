@@ -1,12 +1,26 @@
+# PYTHON
 numpy
 pandas
 matplotlib
-scikit-learn
-tensorflow
 seaborn
 jupyter
-setuptools
 ipython
 ipykernel
-heartbd
+
+# MACHINE LEARNING
+scikit-learn
+tensorflow
 imblearn
+
+# SYSTEM
+setuptools
+# heartbd
+
+# API and FRONT END
+uvicorn
+fastapi
+streamlit
+
+# .env
+
+python-dotenv
