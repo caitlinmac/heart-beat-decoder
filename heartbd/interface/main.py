@@ -11,7 +11,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 
 
-def load_data(folder_path, folder_name):
+def load_data(folder_path, folder_name) -> pd.core.frame.DataFrame:
     """
     folder_path: string,
                  path of which folder has been saved on project
@@ -26,9 +26,9 @@ def load_data(folder_path, folder_name):
 
     return pd.read_csv(folder_path + folder_name)
 
-def clean():
+def clean()-> pd.core.frame.DataFrame:
     """
-    Put descriptions please of what this function is doing
+    It cleans the dataset before preprocessing features
     """
 
     data = load_data(os.environ.get('FOLDER_PATH'), os.environ.get('DATASET_FILE'))
@@ -49,6 +49,7 @@ def clean():
 def preprocess():
     """
     The preprocess of data before training
+    return X_train, y_train, X_test, y_test
     """
     data = clean()
 
@@ -77,14 +78,15 @@ def preprocess():
 
 def initialize_model():
     """
-    Good practice for any further modification
+    Initialize the choosen model
     """
     return RandomForestClassifier(random_state=101, n_estimators=50)
 
-
-
 def main_stream():
+    """
+    This has the structure to load every step one by one.
 
+    """
     X_train, y_train, X_test, y_test = preprocess()
 
     model = initialize_model()
