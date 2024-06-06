@@ -10,7 +10,7 @@ import os
 import time
 
 
-def load_data(folder_path, folder_name):
+def load_data(folder_path, folder_name) -> pd.core.frame.DataFrame:
     """
     folder_path: string,
                  path of which folder has been saved on project
@@ -25,11 +25,11 @@ def load_data(folder_path, folder_name):
 
     return pd.read_csv(folder_path + folder_name)
 
-
 def clean():
     """
     Clean the dataset: removing empty columns, renaming types.
     """
+    
     data = load_data(os.environ.get('FOLDER_PATH'), os.environ.get('DATASET_FILE'))
 
     type_mapping = {
@@ -47,10 +47,14 @@ def clean():
 
 def preprocess():
     """
+
     Preprocess the data: cleaning, splitting, scaling and resampling.
 
     Returns:
     tuple: Processed training and testing data.
+
+    The preprocess of data before training
+
     """
     data = clean()
 
