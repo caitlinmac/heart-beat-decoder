@@ -22,4 +22,5 @@ fastapi
 streamlit
 
 # .env
+
 python-dotenv
