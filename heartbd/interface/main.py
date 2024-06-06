@@ -4,11 +4,18 @@ import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
+import pickle
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from imblearn.over_sampling import SMOTE
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+
+
+
+def test():
+    return 21 == 21
 
 
 def load_data(folder_path, folder_name) -> pd.core.frame.DataFrame:
@@ -30,7 +37,7 @@ def clean()-> pd.core.frame.DataFrame:
     """
     It cleans the dataset before preprocessing features
     """
-
+    
     data = load_data(os.environ.get('FOLDER_PATH'), os.environ.get('DATASET_FILE'))
 
     type_names = {
@@ -102,8 +109,30 @@ def predict():
     return main_stream()
 
 
+main_output = predict()
+main_output # essentially returns y_pred in a really convoluted way
+
+################################ EXPORT FILE ###################################
+
+# refer to file in an error-safe way
+try:
+    file_path = __file__
+except NameError:
+    file_path = 'main.py'
+
+# parse file name and extension and store file name as 'filename' variable
+filepath = os.path.basename(__file__)
+filename, _ = os.path.splitext(filepath)
+
+# export file to a pickle file as 'filename_pickled.pkl' and
+with open(f'heartbd/models/{filename}_pickled.pkl','wb') as file:
+    pickle.dump(main_output, file)
+    print(f'The model is successfully saved as "{filename}_pickled.pkl"! Consider <{filename}{ _}> pickled.')
+=======
+
 def test():
     print(predict())
 
 if __name__ == "__main__":
     test()
+
