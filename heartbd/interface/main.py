@@ -170,8 +170,7 @@ with open(f'heartbd/models/{filename}_pickled.pkl','wb') as file:
     print(f'The model is successfully saved as "{filename}_pickled.pkl"! Consider <{filename}{ _}> pickled.')
 
 
-def test():
-    print(predict())
+
 
 
 if __name__ == "__main__":
