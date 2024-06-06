@@ -37,7 +37,7 @@ def clean()-> pd.core.frame.DataFrame:
     """
     It cleans the dataset before preprocessing features
     """
-    
+
     data = load_data(os.environ.get('FOLDER_PATH'), os.environ.get('DATASET_FILE'))
 
     type_names = {
@@ -128,11 +128,10 @@ filename, _ = os.path.splitext(filepath)
 with open(f'heartbd/models/{filename}_pickled.pkl','wb') as file:
     pickle.dump(main_output, file)
     print(f'The model is successfully saved as "{filename}_pickled.pkl"! Consider <{filename}{ _}> pickled.')
-=======
+
 
 def test():
     print(predict())
 
 if __name__ == "__main__":
     test()
-
