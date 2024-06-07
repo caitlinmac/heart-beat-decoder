@@ -19,3 +19,4 @@ def predict(main_output):
 		model = pickle.load(file)            # pickle-level
 	prediction = model.predict(main_output)  # model-level
 	return {'prediction': prediction}        # API-level
+
