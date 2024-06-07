@@ -18,19 +18,12 @@ import time
 def load_model():
 
     model_target = os.environ.get('MODEL_TARGET')
-    pickle_file_name = 'pickled'
+    pickle_file_name = 'local_pickled'
 
-    if model_target == 'local':
-        return pm.model()
-    else:
+    if model_target == 'pickle':
         return pickle.load(open(f"heartbd/models/{pickle_file_name}.pkl","rb"))
-
-
-def sample_test():
-    """
-    It provides sample from data set to test the prediction that the model needs to.
-    return: X_test, Y_test
-    """
+    else:
+        return pm.model()
 
 
 def predict():
@@ -45,9 +38,6 @@ def predict():
     model = load_model()
 
     y_pred = model.predict(X_test)
-
-
-
     return y_pred
 
 

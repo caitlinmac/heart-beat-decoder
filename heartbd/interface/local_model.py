@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 import pickle
-from sklearn.model_selection import train_test_split, cross_val_score, StratifiedKFold, GridSearchCV
+from sklearn.model_selection import train_test_split, cross_val_predict, cross_val_score, StratifiedKFold, GridSearchCV
 from sklearn.preprocessing import MinMaxScaler
 from imblearn.over_sampling import SMOTE
 from sklearn.ensemble import RandomForestClassifier
@@ -82,10 +82,14 @@ def model():
     X_train, y_train, X_test, y_test = preprocess()
 
     # The model and parameters
-    model =  RandomForestClassifier(random_state=101, n_estimators=50)
+    model =  RandomForestClassifier(random_state=101, n_estimators=50, max_depth= None, min_samples_split= 10 , min_samples_leaf= 1)
+    cv = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
 
-     # Cross-validation and hyperparameter tuning
-    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+    predict = cross_val_predict(model, X_train, y_train, cv=cv)
+
+    # Uncomment to use a gridsearch
+    """ # Cross-validation and hyperparameter tuning
+    cv = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
     param_grid = {
         'n_estimators': [50, 100, 200],
         'max_depth': [None, 10, 20],
@@ -98,7 +102,8 @@ def model():
 
     best_model = grid_search.best_estimator_
     y_pred = best_model.predict(X_test)
-    accuracy = accuracy_score(y_train, y_pred)
+
+    accuracy = accuracy_score(y_test, y_pred)
     # Comment out the print statements
     print("Best params: ", grid_search.best_params_)
     print("Best cross-val score: ", grid_search.best_score_)
@@ -107,9 +112,14 @@ def model():
     print(confusion_matrix(y_test, y_pred))
     print("*** Classification Report ***")
     print(classification_report(y_test, y_pred, target_names=['Normal', 'Abnormal']))
+"""
+    # Save the model every time it has been train into a pickle
+    if os.environ.get('MODEL_PICKEL_PATH') != None:
+        with open(os.environ.get('MODEL_PICKEL_PATH'), "wb") as file:
+            pickle.dump(model, file)
+    else:
 
-    # Save the model every time it has been train
-    with open("heartbd/models/local_model.pkl", "wb") as file:
-        pickle.dump(best_model, file)
+        with open("heartbd/models/local_model.pkl", "wb") as file:
+            pickle.dump(model, file)
 
-    return best_model
+    return model
