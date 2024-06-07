@@ -34,7 +34,7 @@ def clean():
     data['type'] = data['type'].map(type_mapping)
     return data
 
-def preprocess():
+def preprocess(X = None):
     """
 
     Preprocess the data: cleaning, splitting, scaling and resampling.
@@ -45,32 +45,39 @@ def preprocess():
     The preprocess of data before training
 
     """
-    data = clean()
+    if X is None:
+        data = clean()
 
-    # Defining the features and the target
-    X = data.drop('type', axis=1)
-    y = data['type']
+        # Defining the features and the target
+        X = data.drop('type', axis=1)
+        y = data['type']
 
-    binary_type_mapping = {'Normal': 0, 'Abnormal': 1}
-    y = y.map(binary_type_mapping)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
+        binary_type_mapping = {'Normal': 0, 'Abnormal': 1}
+        y = y.map(binary_type_mapping)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
 
-    # Scaling the data before training
-    scaler = MinMaxScaler()
-    X_train = scaler.fit_transform(X_train)
-    X_test = scaler.transform(X_test)
+        # Scaling the data before training
+        scaler = MinMaxScaler()
+        X_train = scaler.fit_transform(X_train)
+        X_test = scaler.transform(X_test)
 
-    # Resampling and rebalancing the data
-    smote = SMOTE(sampling_strategy='auto', random_state=42, k_neighbors=3)
-    X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
+        # Resampling and rebalancing the data
+        smote = SMOTE(sampling_strategy='auto', random_state=42, k_neighbors=3)
+        X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
 
-    # Slicing to get light training memory
-    subset_size = 1000
-    X_train_subsample = X_train_resampled[:subset_size]
-    y_train_subsample = y_train_resampled[:subset_size]
+        # Slicing to get light training memory
+        subset_size = 1000
+        X_train_subsample = X_train_resampled[:subset_size]
+        y_train_subsample = y_train_resampled[:subset_size]
 
-    return X_train_subsample, y_train_subsample, X_test, y_test
+        return X_train_subsample, y_train_subsample, X_test, y_test
 
+    else:
+        X = X.drop('type', axis=1)
+        scaler = MinMaxScaler()
+        X = scaler.fit_transform(X)
+
+        return X
 
 def model():
     """
@@ -83,9 +90,7 @@ def model():
 
     # The model and parameters
     model =  RandomForestClassifier(random_state=101, n_estimators=50, max_depth= None, min_samples_split= 10 , min_samples_leaf= 1)
-    cv = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
-
-    predict = cross_val_predict(model, X_train, y_train, cv=cv)
+    model.fit(X_train, y_train)
 
     # Uncomment to use a gridsearch
     """ # Cross-validation and hyperparameter tuning
