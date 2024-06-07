@@ -14,12 +14,13 @@ imblearn
 
 # SYSTEM
 setuptools
-# heartbd
+heartbd
 
 # API and FRONT END
 uvicorn
 fastapi
 streamlit
+pydantic
 
 # .env
 python-dotenv
