@@ -11,3 +11,4 @@ ipykernel
 heartbd
 imblearn
 python-dotenv
+streamlit
