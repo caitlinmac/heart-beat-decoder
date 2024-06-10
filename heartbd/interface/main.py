@@ -1,4 +1,6 @@
 
+
+import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -10,12 +12,13 @@ from imblearn.over_sampling import SMOTE
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 
-################################################################################
+
 
 def test():
     return 21 == 21
 
-def load_data(folder_path, folder_name):
+
+def load_data(folder_path, folder_name) -> pd.core.frame.DataFrame:
     """
     folder_path: string,
                  path of which folder has been saved on project
@@ -30,11 +33,12 @@ def load_data(folder_path, folder_name):
 
     return pd.read_csv(folder_path + folder_name)
 
-def clean():
+def clean()-> pd.core.frame.DataFrame:
     """
-    Put descriptions please of what this function is doing
+    It cleans the dataset before preprocessing features
     """
-    data = load_data('raw_data/','INCART 2-lead Arrhythmia Database.csv')
+    
+    data = load_data(os.environ.get('FOLDER_PATH'), os.environ.get('DATASET_FILE'))
 
     type_names = {
         'N': 'Normal',
@@ -52,6 +56,7 @@ def clean():
 def preprocess():
     """
     The preprocess of data before training
+    return X_train, y_train, X_test, y_test
     """
     data = clean()
 
@@ -80,14 +85,15 @@ def preprocess():
 
 def initialize_model():
     """
-    Good practice for any further modification
+    Initialize the choosen model
     """
     return RandomForestClassifier(random_state=101, n_estimators=50)
 
-
-
 def main_stream():
+    """
+    This has the structure to load every step one by one.
 
+    """
     X_train, y_train, X_test, y_test = preprocess()
 
     model = initialize_model()
@@ -101,6 +107,7 @@ def main_stream():
 
 def predict():
     return main_stream()
+
 
 main_output = predict()
 main_output # essentially returns y_pred in a really convoluted way
@@ -121,3 +128,11 @@ filename, _ = os.path.splitext(filepath)
 with open(f'heartbd/models/{filename}_pickled.pkl','wb') as file:
     pickle.dump(main_output, file)
     print(f'The model is successfully saved as "{filename}_pickled.pkl"! Consider <{filename}{ _}> pickled.')
+=======
+
+def test():
+    print(predict())
+
+if __name__ == "__main__":
+    test()
+

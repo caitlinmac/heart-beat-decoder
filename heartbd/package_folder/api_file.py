@@ -7,7 +7,7 @@ import pickle
 # instantiate
 app = FastAPI()
 
-# implementing middleware because it is dev best practice
+# implementing middleware because it is best practice
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Allows all origins
@@ -58,7 +58,7 @@ def root():
 1qrsmorph3 = '1_qrs_morph3'
 1qrsmorph4 = '1_qrs_morph4'
 
-class PredictionInput(BaseModel)
+class PredictionInput(BaseModel):
 '''
 
 '''
