@@ -73,7 +73,8 @@ def preprocess(X = None):
         return X_train_subsample, y_train_subsample, X_test, y_test
 
     else:
-        X = X.drop('type', axis=1)
+        if 'type' in X.columns:
+            X = X.drop('type', axis=1)
         scaler = MinMaxScaler()
         X = scaler.fit_transform(X)
 
@@ -118,7 +119,8 @@ def model():
     print("*** Classification Report ***")
     print(classification_report(y_test, y_pred, target_names=['Normal', 'Abnormal']))
 """
-    # Save the model every time it has been train into a pickle
+    # Save the model every time it has been train into a pickle.
+    # Save on global variable as priority if not hard path.
     if os.environ.get('MODEL_PICKEL_PATH') != None:
         with open(os.environ.get('MODEL_PICKEL_PATH'), "wb") as file:
             pickle.dump(model, file)
