@@ -16,7 +16,7 @@ Y_TEST = pd.Series
 
 def clean():
     """
-    Load the dataset from a path and a csv file.
+    Load the dataset from global variable from .env path from FOLDER_PATH and DATASET_FILE.
     Clean the dataset: removing empty columns, renaming types.
     """
 
@@ -38,9 +38,13 @@ def preprocess(X = None):
     """
 
     Preprocess the data: cleaning, splitting, scaling and resampling.
+    X: default None,
+        X typically use for prediction if none it process a brand
+        new data from clean().
 
     Returns:
-    tuple: Processed training and testing data.
+    if X: None -> X_train, y_train, X_test, y_test
+    if X: -> X
 
     The preprocess of data before training
 
@@ -82,10 +86,15 @@ def preprocess(X = None):
 
 def model():
     """
-    Main function to preprocess data, train the model, and make predictions.
+    Main function to preprocess data, train the model and save it into pickle and return the model.
 
-    Returns:
-    np.ndarray: Predictions from the model.
+    If the MODEL_TARGET is set to local, the model into model that function will be used
+    otherwise it will runs only from the pickle.
+
+    see load_model in main.py for more details...
+
+    Returns: Model
+
     """
     X_train, y_train, X_test, y_test = preprocess()
 
@@ -121,7 +130,8 @@ def model():
 """
     # Save the model every time it has been train into a pickle.
     # Save on global variable as priority if not hard path.
-    model_custom_path = os.environ.get('MODEL_PICKEL_PATH')
+    model_custom_path = os.environ.get('MODEL_PICKLE_PATH')
+
     if model_custom_path != None:
         with (model_custom_path, "wb") as file:
             pickle.dump(model, file)

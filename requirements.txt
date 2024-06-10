@@ -21,6 +21,7 @@ uvicorn
 fastapi
 streamlit
 pydantic
+docker
 
 # .env
 python-dotenv
