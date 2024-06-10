@@ -8,10 +8,14 @@ import pandas as pd
 app = FastAPI()
 
 # load model from pickle file
+# important to do it outside the model so that we don't have to wait for it to load
 with open('heartbd/models/main_test.pkl','rb') as file:
+    '''
+    the path specified is where the file is being loaded from ('rb' is 'read binary')
+    '''
     app.state.model = pickle.load(file)
 
-# implementing middleware because it is best practice
+# implementing FastApi middleware because it is the recommended best practice
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -113,72 +117,3 @@ def predict(X_pred: InputFeatures):
     X_processed = X_pred.values
     y_pred = model.predict(X_processed)
     return dict(result=float(y_pred))
-
-#     return {'prediction': prediction}        # API-level
-# prediction = model.predict(main_output)  # model-level
-
-# _0preRR = '0_pre-RR'
-# _0postRR = '0_post-RR'
-# _0pPeak = '0_pPeak'
-# _0tPeak = '0_tPeak'
-# _0rPeak = '0_rPeak'
-# _0sPeak = '0_sPeak'
-# _0qPeak = '0_qPeak'
-# _0qrsinterval = '0_qrs_interval'
-# _0pqinterval = '0_pq_interval'
-# _0qtinterval = '0_qt_interval'
-# _0stinterval = '0_st_interval'
-# _0qrsmorph0 = '0_qrs_morph0'
-# _0qrsmorph1 = '0_qrs_morph1'
-# _0qrsmorph2 = '0_qrs_morph2'
-# _0qrsmorph3 = '0_qrs_morph3'
-# _0qrsmorph4 = '0_qrs_morph4'
-# _1preRR = '1_pre-RR'
-# _1postRR = '1_post-RR'
-# _1pPeak = '1_pPeak'
-# _1tPeak = '1_tPeak'
-# _1rPeak = '1_rPeak'
-# _1sPeak = '1_sPeak'
-# _1qPeak ='1_qPeak'
-# _1qrsinterval = '1_qrs_interval'
-# _1pqinterval = '1_pq_interval'
-# _1qtinterval = '1_qt_interval'
-# _1stinterval = '1_st_interval'
-# _1qrsmorph0 = '1_qrs_morph0'
-# _1qrsmorph1 = '1_qrs_morph1'
-# _1qrsmorph2 = '1_qrs_morph2'
-# _1qrsmorph3 = '1_qrs_morph3'
-# _1qrsmorph4 = '1_qrs_morph4'
-
-#  {'0_pre-RR': pd.dtype('int64'),
-#     '0_post-RR': pd.dtype('int64'),
-#     '0_pPeak': pd.dtype('float64'),
-#     '0_tPeak': pd.dtype('float64'),
-#     '0_rPeak': pd.dtype('float64'),
-#     '0_sPeak': pd.dtype('float64'),
-#     '0_qPeak': pd.dtype('float64'),
-#     '0_qrs_interval': pd.dtype('int64'),
-#     '0_pq_interval': pd.dtype('int64'),
-#     '0_qt_interval': pd.dtype('int64'),
-#     '0_st_interval': pd.dtype('int64'),
-#     '0_qrs_morph0': pd.dtype('float64'),
-#     '0_qrs_morph1': pd.dtype('float64'),
-#     '0_qrs_morph2': pd.dtype('float64'),
-#     '0_qrs_morph3': pd.dtype('float64'),
-#     '0_qrs_morph4': pd.dtype('float64'),
-#     '1_pre-RR': pd.dtype('int64'),
-#     '1_post-RR': pd.dtype('int64'),
-#     '1_pPeak': pd.dtype('float64'),
-#     '1_tPeak': pd.dtype('float64'),
-#     '1_rPeak': pd.dtype('float64'),
-#     '1_sPeak': pd.dtype('float64'),
-#     '1_qPeak': pd.dtype('float64'),
-#     '1_qrs_interval': pd.dtype('int64'),
-#     '1_pq_interval': pd.dtype('int64'),
-#     '1_qt_interval': pd.dtype('int64'),
-#     '1_st_interval': pd.dtype('int64'),
-#     '1_qrs_morph0': pd.dtype('float64'),
-#     '1_qrs_morph1': pd.dtype('float64'),
-#     '1_qrs_morph2': pd.dtype('float64'),
-#     '1_qrs_morph3': pd.dtype('float64'),
-#     '1_qrs_morph4': pd.dtype('float64')}
