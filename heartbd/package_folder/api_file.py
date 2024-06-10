@@ -118,3 +118,4 @@ def predict(X_pred: InputFeatures):
     X_processed = X_pred.values
     y_pred = model.predict(X_processed)
     return dict(result=float(y_pred))
+
