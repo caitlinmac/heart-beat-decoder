@@ -23,5 +23,4 @@ streamlit
 pydantic
 
 # .env
-
 python-dotenv
