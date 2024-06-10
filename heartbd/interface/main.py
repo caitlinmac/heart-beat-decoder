@@ -35,12 +35,12 @@ def load_model():
 
 
     model_target = os.environ.get('MODEL_TARGET')
-    model_path_pickel = os.environ.get('MODEL_PICKLE_PATH')
+    model_path_pickle = os.environ.get('MODEL_PICKLE_PATH')
     pickle_file_name = 'local_pickled'
 
-    # To load the model from the custom library MODEL_PICKEL_PATH and MODEL_TARGET has to be set properly
-    if model_path_pickel != None and model_target == 'pickle':
-        return pickle.load(open(model_path_pickel,"rb"))
+    # To load the model from the custom library MODEL_PICKLE_PATH and MODEL_TARGET has to be set properly
+    if model_path_pickle != None and model_target == 'pickle':
+        return pickle.load(open(model_path_pickle,"rb"))
     if model_target == 'pickle':
         return pickle.load(open(f"heartbd/models/{pickle_file_name}.pkl","rb"))
     else:
