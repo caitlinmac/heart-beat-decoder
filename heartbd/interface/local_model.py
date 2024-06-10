@@ -130,7 +130,7 @@ def model():
 """
     # Save the model every time it has been train into a pickle.
     # Save on global variable as priority if not hard path.
-    model_custom_path = os.environ.get('MODEL_PICKEL_PATH')
+    model_custom_path = os.environ.get('MODEL_PICKLE_PATH')
 
     if model_custom_path != None:
         with (model_custom_path, "wb") as file:

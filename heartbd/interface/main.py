@@ -30,7 +30,7 @@ def load_model():
 
     .env
     >>>MODEL_TARGET='pickle'
-    >>>MODEL_PICKEL_PATH='pickle_model/trained_model.pkl'
+    >>>MODEL_PICKLE_PATH='pickle_model/trained_model.pkl'
     """
 
 
