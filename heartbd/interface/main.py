@@ -17,7 +17,6 @@ def initialize_model():
 
 def main_stream():
     X_train, y_train, X_test, y_test, scaler = preprocess()
-
     model = initialize_model()
     model.fit(X_train, y_train)
 

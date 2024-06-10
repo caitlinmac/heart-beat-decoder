@@ -20,6 +20,7 @@ def clean():
     data['type'] = data['type'].map(type_mapping)
     return data
 
+
 def preprocess():
     data = clean()
     X = data.drop('type', axis=1)
@@ -35,7 +36,7 @@ def preprocess():
     smote = SMOTE(sampling_strategy='auto', random_state=42, k_neighbors=3)
     X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
 
-    subset_size = 10000
+    subset_size = 50000
     X_train_subsample = X_train_resampled[:subset_size]
     y_train_subsample = y_train_resampled[:subset_size]
 
