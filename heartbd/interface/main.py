@@ -41,7 +41,6 @@ def predict(X_predict = None):
     # If no X_predict provided create one
     if X_predict is None:
         data = lm.clean()
-        fraction_test = 0.2
         X_predict = pd.DataFrame(data.iloc[3000, :])
 
     print(X_predict)
