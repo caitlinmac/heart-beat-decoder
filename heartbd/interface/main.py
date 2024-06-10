@@ -29,6 +29,7 @@ def load_model():
         return lm.model()
 
 
+
 def predict(X_predict = None):
     """
     Function to call the main stream for predictions.
@@ -37,21 +38,22 @@ def predict(X_predict = None):
     np.ndarray: Predictions from the main stream.
 
     """
+    # If no X_predict provided create one
     if X_predict is None:
         data = lm.clean()
+        X_predict = pd.DataFrame(data.iloc[3000, :])
 
-        fraction_test = 0.2
-        slice = int(data.shape[0] *fraction_test // 1)
-        X_predict = data.iloc[:slice, :]
-        X_predict = preprocess(X_predict)
-        print(X_predict.shape)
+    print(X_predict)
+    X_predict = preprocess(X_predict)
 
-    X, y, X_test, y_test = preprocess()
-    print(f'x has a shape of {X_test.shape}')
+    print(f'X has a shape of {X_predict.shape}')
     model = load_model()
-
-    y_pred = model.predict(X_test)
-    return y_pred
+    print(f"model loaded as {os.environ.get('MODEL_TARGET')}")
+    if type(model) == tuple:
+        y_pred = model[0].predict(X_predict)
+    else:
+        y_pred = model.predict(X_predict)
+    return y_pred[0]
 
 
 if __name__ == "__main__":

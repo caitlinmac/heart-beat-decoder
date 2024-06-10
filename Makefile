@@ -7,6 +7,6 @@ install:
 	@pip install -e .
 	@pip install --upgrade pip
 
-	
+
 main_file_test:
 	@python heartbd/interface/main.py

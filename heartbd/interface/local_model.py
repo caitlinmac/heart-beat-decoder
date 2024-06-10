@@ -73,10 +73,11 @@ def preprocess(X = None):
         return X_train_subsample, y_train_subsample, X_test, y_test
 
     else:
-        X = X.drop('type', axis=1)
+
+        X = X.drop('type')
         scaler = MinMaxScaler()
         X = scaler.fit_transform(X)
-
+        X = X.reshape((1,32))
         return X
 
 def model():
@@ -118,10 +119,13 @@ def model():
     print("*** Classification Report ***")
     print(classification_report(y_test, y_pred, target_names=['Normal', 'Abnormal']))
 """
-    # Save the model every time it has been train into a pickle
-    if os.environ.get('MODEL_PICKEL_PATH') != None:
-        with open(os.environ.get('MODEL_PICKEL_PATH'), "wb") as file:
+    # Save the model every time it has been train into a pickle.
+    # Save on global variable as priority if not hard path.
+    model_custom_path = os.environ.get('MODEL_PICKEL_PATH')
+    if model_custom_path != None:
+        with (model_custom_path, "wb") as file:
             pickle.dump(model, file)
+            print(f'loaded pickle from {model_custom_path}')
     else:
 
         with open("heartbd/models/local_model.pkl", "wb") as file:
