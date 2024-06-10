@@ -102,6 +102,7 @@ def root():
 
 # define our prediction and call the class of InputFeatures
 @app.get('/predict')
+
 def predict(X_pred: InputFeatures):
     '''
     1. refer to all X features and store in dataframe
