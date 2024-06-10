@@ -73,11 +73,11 @@ def preprocess(X = None):
         return X_train_subsample, y_train_subsample, X_test, y_test
 
     else:
-        if 'type' in X.columns:
-            X = X.drop('type', axis=1)
+
+        X = X.drop('type')
         scaler = MinMaxScaler()
         X = scaler.fit_transform(X)
-
+        X = X.reshape((1,32))
         return X
 
 def model():
