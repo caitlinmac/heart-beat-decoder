@@ -121,9 +121,11 @@ def model():
 """
     # Save the model every time it has been train into a pickle.
     # Save on global variable as priority if not hard path.
-    if os.environ.get('MODEL_PICKEL_PATH') != None:
-        with open(os.environ.get('MODEL_PICKEL_PATH'), "wb") as file:
+    model_custom_path = os.environ.get('MODEL_PICKEL_PATH')
+    if model_custom_path != None:
+        with (model_custom_path, "wb") as file:
             pickle.dump(model, file)
+            print(f'loaded pickle from {model_custom_path}')
     else:
 
         with open("heartbd/models/local_model.pkl", "wb") as file:

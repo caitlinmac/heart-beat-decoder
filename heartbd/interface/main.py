@@ -50,7 +50,10 @@ def predict(X_predict = None):
     print(f'X has a shape of {X_predict.shape}')
     model = load_model()
     print(f"model loaded as {os.environ.get('MODEL_TARGET')}")
-    y_pred = model.predict(X_predict)
+    if type(model) == tuple:
+        y_pred = model[0].predict(X_predict)
+    else:
+        y_pred = model.predict(X_predict)
     return y_pred[0]
 
 
