@@ -7,6 +7,8 @@ install:
 	@pip install -e .
 	@pip install --upgrade pip
 
-
 main_file_test:
 	@python heartbd/interface/main.py
+
+run_api:
+	@uvicorn heartbd.package_folder.api_file:app --reload
