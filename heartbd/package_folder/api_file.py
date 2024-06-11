@@ -102,6 +102,6 @@ def predict(_0preRR: int,
                         _1qrsmorph1,
                         _1qrsmorph2,
                         _1qrsmorph3,
-                        _1qrsmorph4,) # pass all features into the api
+                        _1qrsmorph4,) # pass all features into the api, feature variables indexed through the front end
     y_pred = float(prediction[0])
     return {"result": y_pred} # return a dictionary formatted as {result: <float>}
