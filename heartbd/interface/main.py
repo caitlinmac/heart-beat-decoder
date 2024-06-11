@@ -59,9 +59,11 @@ def predict(X_predict = None):
     # If no X_predict provided create one
     if X_predict is None:
         data = lm.clean()
-        X_predict = pd.DataFrame(data.iloc[3000, :])
+        X_predict = pd.DataFrame(data.iloc[175000, :])
+        print(X_predict)
+        X_predict = X_predict.drop('type')
 
-    print(X_predict)
+
     X_predict = preprocess(X_predict)
 
     print(f'X has a shape of {X_predict.shape}')
