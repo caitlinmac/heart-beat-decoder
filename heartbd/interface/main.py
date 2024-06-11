@@ -59,14 +59,14 @@ def predict(X_predict = None):
     # If no X_predict provided create one
     if X_predict is None:
         data = lm.clean()
-        X_predict = pd.DataFrame(data.iloc[3000, :])
-
-    print(X_predict)
-    X_predict = preprocess(X_predict)
+        X_predict = pd.DataFrame(data.iloc[175_000, :])
+        print(X_predict)
+        X_predict = data.drop('type', axis = 1)
 
     print(f'X has a shape of {X_predict.shape}')
+    X_predict = preprocess(X_predict)
     model = load_model()
-    print(f"model loaded as {os.environ.get('MODEL_TARGET')}")
+    print(f"model loaded as a {os.environ.get('MODEL_TARGET')}")
     if type(model) == tuple:
         y_pred = model[0].predict(X_predict)
     else:
