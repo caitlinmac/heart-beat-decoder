@@ -16,13 +16,31 @@ import time
 
 
 def load_model():
+    """
+    Method: loads a model on the behavior of which the global variable has been set
+    inside of .env.
+    MODEL_TARGET: string,
+        default:None, use 'pickle' or 'local'
+        - None or 'local': Will use local_model.py
+        -'pickle' : Will use the pickle saved model locally see MODEL_PICKLE for more details.
+    MODEL_PICKLE: string,
+        default: None,
+        otherwise it has to be a folder that already exists set for the pickle path.
+        <folder path + file + extension>: use a folder path and overide the default pickle path.
+
+    .env
+    >>>MODEL_TARGET='pickle'
+    >>>MODEL_PICKLE_PATH='pickle_model/trained_model.pkl'
+    """
+
 
     model_target = os.environ.get('MODEL_TARGET')
-    model_path_pickel = os.environ.get('MODEL_PICKEL_PATH')
+    model_path_pickle = os.environ.get('MODEL_PICKLE_PATH')
     pickle_file_name = 'local_pickled'
 
-    if model_path_pickel != None and model_target == 'pickle':
-        return pickle.load(open(model_path_pickel,"rb"))
+    # To load the model from the custom library MODEL_PICKLE_PATH and MODEL_TARGET has to be set properly
+    if model_path_pickle != None and model_target == 'pickle':
+        return pickle.load(open(model_path_pickle,"rb"))
     if model_target == 'pickle':
         return pickle.load(open(f"heartbd/models/{pickle_file_name}.pkl","rb"))
     else:
