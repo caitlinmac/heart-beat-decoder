@@ -40,11 +40,3 @@ push_image_production:
 deploy_and_run:
 	@gcloud run deploy --image $$GCP_REGION-docker.pkg.dev/$$GCP_PROJECT/$$ARTIFACTSREPO/$$IMAGE
 
-exports:
-	@export IMAGE=heartbeat_decoder
-	@export GCP_REGION=europe_west1
-	@export ARTIFACTSREPO=heartbeat_decoder
-	@export GCP_PROJECT=nifty-acolyte-424816-m3
-	@export MEMORY=2Gi
-	@export MODEL_TARGET='pickle'
-	@export MODEL_PICKLE_PATH='heartbd/models/trained_model 2024-06-10-11H00.pkl'
