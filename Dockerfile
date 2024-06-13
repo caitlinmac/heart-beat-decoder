@@ -10,8 +10,11 @@ COPY setup.py setup.py
 RUN pip install -e .
 RUN pip install -r requirements.txt
 
+# expose the listening port
+EXPOSE 8080
+
 # run container locally
-CMD uvicorn heartbd.package_folder.api_file:app --reload 
+# CMD uvicorn heartbd.package_folder.api_file:app --reload
 
 # run container deployed
-# CMD uvicorn heartbd.package_folder.api_file:app --reload —host 0.0.0.0 —port $PORT
+CMD uvicorn heartbd.package_folder.api_file:app --reload --host 0.0.0.0 --port=8080 
