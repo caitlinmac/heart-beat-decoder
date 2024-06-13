@@ -22,13 +22,6 @@ app = FastAPI()
  #   app.state.model = pickle.load(file)
 
 # implementing FastApi middleware because it is the recommended best practice
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"]
-)
 
 # define the root directory of the API
 @app.get('/')
