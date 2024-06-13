@@ -78,7 +78,6 @@ def preprocess(X = None):
 
     else:
 
-        X = X.drop('type')
         scaler = MinMaxScaler()
         X = scaler.fit_transform(X)
         X = X.reshape((1,32))
