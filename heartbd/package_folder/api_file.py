@@ -1,29 +1,10 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from heartbd.interface import main
 import pandas as pd
 
 # instantiate
 app = FastAPI()
 
-# filename variable in case our pickle file changes
-#pkl_file = "local_model" # or whatever the pickle filename is
-
-
-###################### NOTE #####################################################
-##### #Loading the model is deprecated as it loads already from the backend #####
-
-# load model from pickle file
-# important to do it outside the model so that we don't have to wait for it to load
-#with open(f'heartbd/models/{pkl_file}.pkl','rb') as file:
- #   '''
- #   the path specified is where the file is being loaded from ('rb' is 'read binary')
- #   '''
- #   app.state.model = pickle.load(file)
-
-# implementing FastApi middleware because it is the recommended best practice
-
-# define the root directory of the API
 @app.get('/')
 def root():
 	return {'greeting': 'ground control to major tom...'}
@@ -64,8 +45,10 @@ def predict(_0preRR: int,
     _1qrsmorph4: float,
 ):
     '''
-    Our predict function in the API
-    Loads only the trained model and return it prediction into a int type
+    Predict function to send result. The input is 32 features from ECG reading.
+    Loads the trained model from the specified location and do the prediction.
+
+    Return: predict result 0 or 1 (int)
     '''
 
     #Loading the model is deprecated as it loads already from the backend

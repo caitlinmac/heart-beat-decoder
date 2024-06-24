@@ -1,10 +1,10 @@
-install_requirements:
-	@pip install -r requirements.txt
-	@echo "Make sure to run 'make install' before. Otherwise, if there is no error, proceed on your branch!"
-
 install:
 	@pip install -e .
 	@pip install --upgrade pip
+
+install_requirements:
+	@pip install -r requirements.txt
+	@echo "Make sure to run 'make install' before. Otherwise, if there is no error, proceed on your branch!"
 
 main_file_test:
 	@python heartbd/interface/main.py
@@ -39,4 +39,3 @@ push_image_production:
 # Step 5
 deploy_and_run:
 	@gcloud run deploy --image $$GCP_REGION-docker.pkg.dev/$$GCP_PROJECT/$$ARTIFACTSREPO/$$IMAGE
-
