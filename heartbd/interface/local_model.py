@@ -8,17 +8,13 @@ List of .env variable used:
 
 """
 
-
-import pandas as pd
 import os
 import pickle
+import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from imblearn.over_sampling import SMOTE
 from sklearn.ensemble import RandomForestClassifier
-import os
-
-
 
 def clean():
     """
@@ -36,13 +32,11 @@ def clean():
     data = pd.read_csv(os.environ.get('FOLDER_PATH') + os.environ.get('DATASET_FILE'))
 
     type_mapping = {
-
         'N'    : 'Normal',
         'SVEB' : 'Abnormal',
         'VEB'  : 'Abnormal',
         'F'    : 'Abnormal',
         'Q'    : 'Abnormal'
-
     }
 
     data         = data.drop(columns=['record'])
@@ -64,6 +58,7 @@ def preprocess(X_predict = None):
     if X_predict: -> numpy.ndarray
 
     """
+
     if X_predict is None:
         data = clean()
 
@@ -90,7 +85,7 @@ def preprocess(X_predict = None):
         X_train_subsample = X_train_resampled[:subset_size]
         y_train_subsample = y_train_resampled[:subset_size]
 
-        return X_train_subsample, y_train_subsample, X_test, y_test
+        return X_train_subsample, y_train_subsample
 
     else:
 
@@ -109,7 +104,7 @@ def model():
     Returns: scikit-learn.model
 
     """
-    X_train, y_train, X_test, y_test = preprocess()
+    X_train, y_train = preprocess()
 
     # The model and parameters
     model =  RandomForestClassifier(random_state=101, n_estimators=50, max_depth= None, min_samples_split= 10 , min_samples_leaf= 1)
