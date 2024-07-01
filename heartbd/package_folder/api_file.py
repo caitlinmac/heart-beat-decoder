@@ -2,14 +2,12 @@ from fastapi import FastAPI
 from heartbd.interface import main
 import pandas as pd
 
-# instantiate
 app = FastAPI()
 
 @app.get('/')
 def root():
 	return {'greeting': 'ground control to major tom...'}
 
-# define our prediction and call the class of InputFeatures
 @app.get('/predict')
 def predict(_0preRR: int,
     _0postRR: int,
@@ -43,16 +41,14 @@ def predict(_0preRR: int,
     _1qrsmorph2: float,
     _1qrsmorph3: float,
     _1qrsmorph4: float,
-):
+) -> dict:
     '''
     Predict function to send result. The input is 32 features from ECG reading.
     Loads the trained model from the specified location and do the prediction.
 
-    Return: predict result 0 or 1 (int)
+    Returns:
+        dict: a predicted result whether 0 or 1.
     '''
-
-    #Loading the model is deprecated as it loads already from the backend
-    #model = app.state.model
 
     # pass all features into the api, feature variables indexed through the front end
     X = pd.DataFrame([_0preRR,
@@ -91,4 +87,4 @@ def predict(_0preRR: int,
     prediction = main.predict(X)
 
     y_pred = int(prediction)
-    return {"result": y_pred} # return a dictionary formatted as {result: <float>}
+    return {"result": y_pred}
