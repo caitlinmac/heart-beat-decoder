@@ -1,32 +1,24 @@
-"""
-
-This core module makes every operation in order to set and get a local_model from scikit-learn.
-To set the model locally use this module to train then it is saved into a pickle.
-List of .env variable used:
--FOLDER_PATH: Folder path of the csv dataset.
--DATASET_FILE: File name and extension of dataset.
-
-"""
 
 import os
 import pickle
 import pandas as pd
+from typing import Union
+from sklearn.base import BaseEstimator
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from imblearn.over_sampling import SMOTE
 from sklearn.ensemble import RandomForestClassifier
 
-def clean():
+def clean() -> pd.DataFrame:
     """
-    Load the dataset and use global variable from .env path from FOLDER_PATH and DATASET_FILE.
-    Clean the dataset: removing empty columns and remaps types.
+    Load and clean the dataset.
 
-    (.env)
-    >>>FOLDER_PATH='raw_data/'
-    >>>DATASET_FILE='heart_readings.csv'
+    Uses .env variables:
+    - FOLDER_PATH: Path to the folder containing the dataset.
+    - DATASET_FILE: Name of the dataset file.
 
     Returns:
-        pandas.DataFrame
+        pd.DataFrame: Cleaned dataset.
     """
 
     data = pd.read_csv(os.environ.get('FOLDER_PATH') + os.environ.get('DATASET_FILE'))
@@ -44,19 +36,15 @@ def clean():
 
     return data
 
-def preprocess(X_predict = None):
+def preprocess(X_predict = None) -> Union[pd.DataFrame, tuple]:
     """
-    The preprocess of data before training
+    Preprocess the data for training or prediction.
 
-    Preprocess the data: cleaning, splitting, scaling and resampling.
-    X_predict (pd.DataFrame): default = None,
-        X_predict is typically use for prediction if X is not provided then processes a brand
-        new data from clean().
+    Args:
+        X_predict (pd.DataFrame, optional): Defaults is None, DataFrame to preprocess for prediction.
 
-    Returns:
-    if X_predict: None -> X_train, y_train, X_test, y_test
-    if X_predict: -> numpy.ndarray
-
+     Returns:
+        Union[pd.DataFrame, tuple]: Preprocessed data for prediction or training.
     """
 
     if X_predict is None:
@@ -88,20 +76,17 @@ def preprocess(X_predict = None):
         return X_train_subsample, y_train_subsample
 
     else:
-
         scaler    = MinMaxScaler()
         X_predict = scaler.fit_transform(X_predict)
         X_predict = X_predict.reshape((1,32))
-
         return X_predict
 
-def model():
+def model() -> BaseEstimator:
     """
-    Main function of this module is used to preprocess data,
-    train the model, save it into pickle into a default path
-    and returns the model.
+    Train and save the model.
 
-    Returns: scikit-learn.model
+    Returns:
+        BaseEstimator: Trained model.
 
     """
     X_train, y_train = preprocess()
@@ -109,36 +94,6 @@ def model():
     # The model and parameters
     model =  RandomForestClassifier(random_state=101, n_estimators=50, max_depth= None, min_samples_split= 10 , min_samples_leaf= 1)
     model.fit(X_train, y_train)
-
-    # Uncomment to use a gridsearch
-    # Cross-validation and hyperparameter tuning
-    # cv = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
-    # param_grid = {
-    #     'n_estimators': [50, 100, 200],
-    #     'max_depth': [None, 10, 20],
-    #     'min_samples_split': [2, 5, 10],
-    #     'min_samples_leaf': [1, 2, 4]
-    # }
-
-    # grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=cv, scoring='accuracy')
-    # grid_search.fit(X_train, y_train)
-
-    # best_model = grid_search.best_estimator_
-    # y_pred = best_model.predict(X_test)
-
-    # accuracy = accuracy_score(y_test, y_pred)
-    # # Comment out the print statements
-    # print("Best params: ", grid_search.best_params_)
-    # print("Best cross-val score: ", grid_search.best_score_)
-    # print(f"Accuracy: {accuracy}")
-    # print("*** Confusion Matrix ***")
-    # print(confusion_matrix(y_test, y_pred))
-    # print("*** Classification Report ***")
-    # print(classification_report(y_test, y_pred, target_names=['Normal', 'Abnormal']))
-
-    # Save the model every time it has been train into a pickle.
-    # Save on global variable as priority if not hard path.
-
 
     path = "heartbd/models/local_model.pkl"
 
